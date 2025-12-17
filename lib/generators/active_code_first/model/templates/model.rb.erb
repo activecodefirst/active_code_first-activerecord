@@ -1,0 +1,28 @@
+<% module_namespacing do -%>
+class <%= class_name %> < <%= parent_class_name %>
+  include ActiveCodeFirst::Model
+
+  adapter :active_record
+
+<% if regular_attributes.any? -%>
+  # Attributes
+<% regular_attributes.each do |attr| -%>
+  attribute :<%= attr.name %>, :<%= attr.type %><%= attr.options_string %>
+<% end -%>
+<% end -%>
+<% if options[:timestamps] -%>
+
+  # Timestamps
+  attribute :created_at, :datetime
+  attribute :updated_at, :datetime
+<% end -%>
+
+  # Add validations here
+  # validates :email, presence: true, uniqueness: true
+  # validates :age, numericality: { greater_than: 0 }
+
+  # Add associations here
+  # belongs_to :user
+  # has_many :posts
+end
+<% end -%>

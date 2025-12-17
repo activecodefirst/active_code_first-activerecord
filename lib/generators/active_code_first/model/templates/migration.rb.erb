@@ -1,0 +1,19 @@
+class Create<%= table_name.camelize %> < ActiveRecord::Migration<%= migration_version %>
+  def change
+    create_table :<%= table_name %> do |t|
+<% regular_attributes.each do |attr| -%>
+      t.<%= attr.type %> :<%= attr.name %><%= attr.migration_options %>
+<% end -%>
+<% if options[:timestamps] -%>
+
+      t.timestamps
+<% end -%>
+    end
+<% if indexed_attributes.any? -%>
+
+<% indexed_attributes.each do |attr| -%>
+    add_index :<%= table_name %>, :<%= attr.name %><%= attr.unique? ? ', unique: true' : '' %>
+<% end -%>
+<% end -%>
+  end
+end

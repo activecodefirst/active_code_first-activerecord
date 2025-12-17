@@ -1,0 +1,39 @@
+.
+├── CHANGELOG.md
+├── Gemfile
+├── LICENSE
+├── PROJECT_SUMMARY.md
+├── README.md
+├── Rakefile
+├── STRUCTURE.txt
+├── active_code_first-activerecord.gemspec
+├── docs
+│   └── architecture.mmd
+├── examples
+│   └── example_models.rb
+├── features
+│   ├── adapter_functionality.feature
+│   ├── model_generation.feature
+│   ├── step_definitions
+│   │   ├── adapter_functionality_steps.rb
+│   │   └── model_generation_steps.rb
+│   └── support
+│       └── env.rb
+├── lib
+│   ├── active_code_first
+│   │   ├── activerecord
+│   │   └── adapter
+│   ├── active_code_first-activerecord.rb
+│   ├── generators
+│   │   └── active_code_first
+│   └── tasks
+│       └── active_code_first_activerecord.rake
+└── spec
+    ├── adapter
+    │   └── active_record_adapter_spec.rb
+    ├── generators
+    │   └── model_generator_spec.rb
+    ├── spec_helper.rb
+    └── support
+
+16 directories, 20 files

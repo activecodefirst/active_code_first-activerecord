@@ -1,0 +1,63 @@
+classDiagram
+    class ActiveCodeFirst {
+        +configure()
+        +configuration
+    }
+
+    class ActiveRecordAdapter {
+        +map_type(type)
+        +generate_create_table_migration(model_class)
+        +generate_migration_class(model_class, migration_name)
+        +create_table(model_class)
+        +add_index(model_class, columns, options)
+        +drop_table(model_class)
+        +table_exists?(model_class)
+        -build_column_options(schema)
+        -build_index_options(schema)
+    }
+
+    class ModelGenerator {
+        +create_model_file()
+        +create_migration_file()
+        -parse_attributes()
+        -parsed_attributes
+        -regular_attributes
+        -indexed_attributes
+    }
+
+    class Railtie {
+        +rake_tasks()
+        +generators()
+        +initializer()
+    }
+
+    class ApplicationRecord {
+        <<ActiveRecord>>
+    }
+
+    class UserModel {
+        +email: string
+        +name: string
+        +age: integer
+        +created_at: datetime
+        +updated_at: datetime
+    }
+
+    class AdapterRegistry {
+        +register(name, adapter_class)
+        +create(name, options)
+        +registered?(name)
+    }
+
+    ActiveCodeFirst --> AdapterRegistry : uses
+    AdapterRegistry --> ActiveRecordAdapter : registers
+    ActiveRecordAdapter --> ApplicationRecord : creates tables
+    ModelGenerator --> UserModel : generates
+    UserModel --|> ApplicationRecord : inherits
+    UserModel --> ActiveCodeFirst : includes Model
+    Railtie --> ModelGenerator : loads
+    Railtie --> ActiveCodeFirst : configures
+
+    note for ActiveRecordAdapter "Translates ActiveCodeFirst\nschema to ActiveRecord\nmigrations and operations"
+    note for ModelGenerator "Rails generator for\ncreating models with\nschema definitions"
+    note for Railtie "Integrates gem with\nRails framework"
